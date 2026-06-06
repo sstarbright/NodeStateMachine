@@ -10,15 +10,10 @@ func _ready() -> void:
 	super._ready()
 	
 	var animation_player = state_machine.animation_player
-	var animation_found = false
-	for animation_listing in animation_player.get_animation_list():
-		if animation_listing == animation_name:
-			var animation = animation_player.get_animation(animation_listing)
-			animation_found = true
-			break
-	if !animation_found:
-		push_error("Animation not found for %s in State Machine %s!" % [name, state_machine.name])
+	if animation_player.has_animation(animation_name):
 		return
+	
+	push_error("Animation not found for %s in State Machine %s!" % [name, state_machine.name])
 
 ## INTERNAL - Enter this State and Exit the previous.
 func _enter(is_initial : bool, trans_node : TransNode):

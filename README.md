@@ -17,8 +17,8 @@ Node-based State Machine for Godot
 - Make it the child of the starting State, and set the Target State
 - Has an Advance Expression
   - Robust, can be used to either:
-    - To automatically transition (Auto Transition) when the conditions are met
-    - To allow or disallow transition when triggered by other means
+    - Automatically transition (Auto Transition) when the conditions are met
+    - Allow or disallow transition when triggered by other means
 ### AnimStateMachine
 - Has all of StateMachine's features
 - Must set a target AnimationPlayer

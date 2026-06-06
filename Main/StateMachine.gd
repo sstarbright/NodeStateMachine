@@ -21,6 +21,7 @@ func _ready() -> void:
 				if !first_state:
 					_current_state = child_node
 					first_state = true
+					break
 		if first_state:
 			_current_state._enter(true, null)
 

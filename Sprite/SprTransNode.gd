@@ -17,7 +17,7 @@ var _transition_after_time := false
 
 func _ready() -> void:
 	super._ready()
-	if transition_start_frame > 0:
+	if transition_start_frame >= 0:
 		_transition_after_time = true
 
 func _process(_delta: float) -> void:

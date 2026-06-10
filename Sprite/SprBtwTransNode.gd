@@ -5,7 +5,8 @@ extends SprTransNode
 @export var transition_animation : String
 ## How much to scale the Animation when it is used.
 @export var transition_speed : float = 1.0
-## Whether other transitions can cancel this one.
-@export var allow_cancel_transition := true
+## Whether other transitions can interrupt this one.
+@export var allow_interrupt := true
+@export var interrupt_whitelist : Dictionary[StringName, bool]
 
 signal finished

@@ -12,9 +12,9 @@ func _process(_delta: float) -> void:
 	if current_trans:
 		var animator = state_machine.animator_node as AnimatedSprite3D
 		if !animator.is_playing():
+			current_trans.finished.emit()
 			animator.play(animation_name, animation_speed)
 			animator.set_frame_and_progress(current_trans.target_start_frame, current_trans.target_start_progress)
-			current_trans.finished.emit()
 			current_trans = null
 
 func _ready() -> void:
@@ -47,9 +47,9 @@ func _enter(is_initial : bool, trans_node : TransNode) -> bool:
 	return false
 
 ## INTERNAL - Exit this State.
-func _exit() -> bool:
+func _exit(trans_node : TransNode) -> bool:
 	if current_trans:
-		if current_trans.allow_cancel_transition:
-			return super._exit()
+		if current_trans.allow_interrupt || current_trans.interrupt_whitelist.has(trans_node.name):
+			return super._exit(trans_node)
 		return false
-	return super._exit()
+	return super._exit(trans_node)

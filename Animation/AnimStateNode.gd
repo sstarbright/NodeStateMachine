@@ -16,11 +16,15 @@ func _ready() -> void:
 	push_error("Animation not found for %s in State Machine %s!" % [name, state_machine.name])
 
 ## INTERNAL - Enter this State and Exit the previous.
-func _enter(is_initial : bool, trans_node : TransNode):
-	if state_machine is AnimStateMachine:
-		var animation_player = state_machine.animation_player
-		if trans_node && trans_node is AnimTransNode:
-			animation_player.play(animation_name, trans_node.transition_time, animation_speed)
-		else:
-			animation_player.play(animation_name, -1, animation_speed)
-	super._enter(is_initial, trans_node)
+func _enter(is_initial : bool, trans_node : TransNode) -> bool:
+	if super._enter(is_initial, trans_node):
+		if state_machine is AnimStateMachine:
+			var animation_player = state_machine.animation_player
+			if trans_node && trans_node is AnimTransNode:
+				animation_player.play(animation_name, trans_node.transition_time, animation_speed)
+			else:
+				animation_player.play(animation_name, -1, animation_speed)
+			return true
+		return false
+	else:
+		return false

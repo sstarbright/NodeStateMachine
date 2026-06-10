@@ -45,18 +45,21 @@ func find_trans_by_name(a : TransNode, b : TransNode) -> bool:
 	return a.name == b.name
 
 ## INTERNAL - Enter this State and Exit the previous.
-func _enter(is_initial : bool, trans_node : TransNode):
-	process_mode = Node.PROCESS_MODE_INHERIT
+func _enter(is_initial : bool, trans_node : TransNode) -> bool:
 	if trans_node:
-		state_machine._current_state._exit()
+		if !state_machine._current_state._exit():
+			return false
 		state_machine._current_state = trans_node.target_state
+	process_mode = Node.PROCESS_MODE_INHERIT
 	state_machine.state_changed.emit(name)
 	entered.emit(is_initial)
+	return true
 
 ## INTERNAL - Exit this State.
-func _exit():
+func _exit() -> bool:
 	process_mode = Node.PROCESS_MODE_DISABLED
 	exited.emit()
+	return true
 
 ## INTERNAL - Switch from this State through a Transition.
 func _switch_to(trans_node : TransNode):

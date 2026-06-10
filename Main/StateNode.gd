@@ -56,7 +56,7 @@ func _enter(is_initial : bool, trans_node : TransNode) -> bool:
 	return true
 
 ## INTERNAL - Exit this State.
-func _exit(trans_node : TransNode) -> bool:
+func _exit(_trans_node : TransNode) -> bool:
 	process_mode = Node.PROCESS_MODE_DISABLED
 	exited.emit()
 	return true

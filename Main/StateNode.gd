@@ -49,9 +49,12 @@ func _enter(is_initial : bool, trans_node : TransNode) -> bool:
 	if trans_node:
 		if !state_machine._current_state._exit(trans_node):
 			return false
-		state_machine._current_state = trans_node.target_state
+	
+	if !is_initial:
+		state_machine.state_exited.emit(state_machine._current_state.name)
+	state_machine.state_entered.emit(name)
+	state_machine._current_state = self
 	process_mode = Node.PROCESS_MODE_INHERIT
-	state_machine.state_changed.emit(name)
 	entered.emit(is_initial)
 	return true
 

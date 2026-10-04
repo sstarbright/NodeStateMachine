@@ -2,8 +2,8 @@
 class_name StateMachine
 extends Node
 
-## Triggered when the State of this StateMachine is changed.
-signal state_changed(new_state : String)
+signal state_entered(state_name : String)
+signal state_exited(state_name : String)
 
 ## INTERNAL - The current State of this StateMachine.
 var _current_state : StateNode

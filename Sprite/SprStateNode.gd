@@ -40,6 +40,9 @@ func _enter(is_initial : bool, trans_node : TransNode) -> bool:
 				elif trans_node is SprTransNode:
 					animator.play(animation_name, animation_speed)
 					animator.set_frame_and_progress(trans_node.target_start_frame, trans_node.target_start_progress)
+				else:
+					animator.play(animation_name, animation_speed)
+					animator.set_frame_and_progress(0, 0.0)
 			else:
 				animator.play(animation_name, animation_speed)
 				animator.set_frame_and_progress(0, 0.0)

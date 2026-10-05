@@ -64,6 +64,11 @@ const EXPRESSION_KEYWORDS : Dictionary[String, bool] = {
 	"or": true
 }
 
+const EXPRESSION_ALLOWED_CHARS : Dictionary[int, bool] = {
+	46: true,
+	95: true
+}
+
 ## The State that this Transition should travel the State Machine to.
 @export var target_state : StateNode
 ## Whether this Transition should be used or not. Avoid setting Process Mode for TransNode, and use this instead.
@@ -108,7 +113,7 @@ func _process(_delta: float) -> void:
 
 ## INTERNAL - Used for filtering for variables in the Advance Expression.
 func _is_part_of_variable(check_char : int):
-	return check_char == 46 || (check_char >= 48 && check_char <= 57) || (check_char >= 65 && check_char <= 90) || check_char == 95 || (check_char >= 97 && check_char <= 122)
+	return EXPRESSION_ALLOWED_CHARS.has(check_char) || (check_char >= 48 && check_char <= 57) || (check_char >= 65 && check_char <= 90) || (check_char >= 97 && check_char <= 122)
 
 ## INTERNAL - Check if the Advance Expression is true.
 func _try_advance() -> bool:
